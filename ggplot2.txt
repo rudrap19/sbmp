@@ -1,0 +1,45 @@
+install.packages("ggplot2")
+
+library(dplyr)
+library(ggplot2)
+
+cleaninh
+sample$Amount <- as.numeric(gsub("[$,]", "", sample$Amount))
+
+total_sales_by_product <- sample %>%
+  group_by(Product) %>%
+  summarize(Total_Sales = sum(Amount, na.rm = TRUE))
+
+bar plot
+ggplot(data = total_sales_by_product, aes(x = reorder(Product, Total_Sales), y = Total_Sales)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Total Sales by Product", x = "Product", y = "Total Sales ($)") +
+  theme_minimal()
+
+
+boxplot
+ggplot(data = sample, aes(x = Country, y = Amount, fill = Country)) +
+  geom_boxplot() +
+  labs(title = "Sales Amount Distribution by Country", x = "Country", y = "Sales Amount ($)") +
+  theme_minimal()
+
+
+histogram
+ggplot(data = sample, aes(x = Amount)) +
+  geom_histogram(binwidth = 2000, fill = "lightblue", color = "black") +
+  labs(title = "Histogram of Sales Amount", x = "Sales Amount ($)", y = "Frequency") +
+  theme_minimal()
+
+
+
+piechart
+sales_by_country <- sample %>%
+  group_by(Country) %>%
+  summarize(Total_Sales = sum(Amount, na.rm = TRUE))
+
+ggplot(data = sales_by_country, aes(x = "", y = Total_Sales, fill = Country)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(title = "Sales Distribution by Country") +
+  theme_void()

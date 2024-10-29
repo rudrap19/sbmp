@@ -1,0 +1,29 @@
+ install.packages("dplyr")
+library(dplyr)
+
+
+sample <- sample %>%
++     mutate(Amount_with_Tax = Amount * 1.10)
+
+ sample_india <- sample %>%
++     filter(Country == "India")
+
+arranged_sample <- sample %>%
+  arrange(Amount)
+
+renamed_sample <- sample %>%
+  rename(Total_Amount = Amount)
+
+sample <- sample %>%
+  mutate(High_Sale = ifelse(Amount > 10000, "Yes", "No"))
+View(sample)
+
+total_sales_by_product <- sample %>%
++     group_by(Product) %>%
++     summarize(Total_Sales = sum(Amount, na.rm = TRUE))
+View(total_sales_by_product)
+
+
+sorted_sample <- sample %>%
++     arrange(desc(Amount))
+

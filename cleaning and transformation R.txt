@@ -1,0 +1,17 @@
+import kro sample ko
+
+head(sample)
+tail(sample)
+
+remove the null rows
+sample<-na.omit(sample)
+
+amount with tax
+sample$Amount_with_Tax <- sample$Amount * 1.10
+
+Filter rows where "Country" is "India"
+sample_india <- sample[sample$Country == "India", ]
+view(sample_india)
+
+sample$Year <- format(as.Date(sample$Date), "%Y")
+head(sample)
